@@ -15,9 +15,15 @@ namespace ConsoleApp1
         private int game;
         private int pole;
         private int vibor1;
+        private int vibor12;
         private int vibor2;
-        private int[] otv = new int[17];
+        private int vibor22;
+        private int nach;
+        private int[] otv = new int[9];
+        private int[,] otv2 = new int[4, 4];
         private int osh2;
+        private int x;
+        private int y;
         private int one;
         private int dwa;
         private int tri;
@@ -35,155 +41,107 @@ namespace ConsoleApp1
                 dwa = 0;
                 tri = 0;
                 chet = 0;
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     for (int j = 0; j < 4; j++)
                     {
                         do
                         {
                             osh = 0;
-                            pole = rnd.Next(1, 5);
+                            pole = rnd.Next(1, 9);
                             nombers[i, j] = pole;
-                            if (pole == 1) { one++; }
-                            if (pole == 2) { dwa++; }
-                            if (pole == 3) { tri++; }
-                            if (pole == 4) { chet++; }
-                            if (one > 2 || dwa > 2 || tri > 2 || chet > 2)
+                            otv2[i, j] = pole;
+                            otv[pole] = otv[pole] + 1;
+                            for (int c = 0; c < 9; c++)
                             {
-                                osh++;
-                                if (one >= 2)
-                                { one = 2; }
-                                if (dwa >= 2)
-                                { dwa = 2; }
-                                if (tri >= 2)
-                                { tri = 2; }
-                                if (chet >= 2)
-                                { chet = 2; }
-                            }
-                        } while (osh == 1);
-                    }
-                }
-                for (int i = 2; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        do
-                        {
-                            osh = 0;
-                            pole = rnd.Next(5, 9);
-                            nombers[i, j] = pole;
-                            if (pole == 5)
-                            {
-                                one++;
-                            }
-                            if (pole == 6) { dwa++; }
-                            if (pole == 7) { tri++; }
-                            if (pole == 8) { chet++; }
-                            if (one > 4 || dwa > 4 || tri > 4 || chet > 4)
-                            {
-                                osh++;
-                                if (one >= 4)
-                                { one = 4; }
-                                if (dwa >= 4)
-                                { dwa = 4; }
-                                if (tri >= 4)
-                                { tri = 4; }
-                                if (chet >= 4)
-                                { chet = 4; }
+                                if (otv[c] > 2)
+                                {
+                                    otv[c] -= 1;
+                                    osh++;
+                                }
                             }
                         } while (osh == 1);
                     }
                 }
                 Console.SetCursorPosition(0, 2);
-                Console.WriteLine("------------------");
-                Console.WriteLine($"|{nombers[0, 0]}  |{nombers[0, 1]}  | {nombers[0, 2]} | {nombers[0, 3]} |");
-                Console.WriteLine("------------------");
-                Console.WriteLine($"|{nombers[1, 0]}  | {nombers[1, 1]} | {nombers[1, 2]} | {nombers[1, 3]} |");
-                Console.WriteLine("------------------");
-                Console.WriteLine($"| {nombers[2, 0]} |{nombers[2, 1]}  | {nombers[2, 2]} |{nombers[2, 3]}  |");
-                Console.WriteLine("------------------");
-                Console.WriteLine($"|{nombers[3, 0]}  |{nombers[3, 1]}  | {nombers[3, 2]} | {nombers[3, 3]} |");
-                Console.WriteLine("------------------");
-                game1();
+                Console.WriteLine("-----------------");
+                Console.WriteLine($"| {nombers[0, 0]} | {nombers[0, 1]} | {nombers[0, 2]} | {nombers[0, 3]} |");
+                Console.WriteLine("-----------------");
+                Console.WriteLine($"| {nombers[1, 0]} | {nombers[1, 1]} | {nombers[1, 2]} | {nombers[1, 3]} |");
+                Console.WriteLine("-----------------");
+                Console.WriteLine($"| {nombers[2, 0]} | {nombers[2, 1]} | {nombers[2, 2]} | {nombers[2, 3]} |");
+                Console.WriteLine("-----------------");
+                Console.WriteLine($"| {nombers[3, 0]} | {nombers[3, 1]} | {nombers[3, 2]} | {nombers[3, 3]} |");
+                Console.WriteLine("-----------------");
+                Console.WriteLine("Введите любое число, чтобы начать игру.");
+                nach = Convert.ToInt32(Console.ReadLine());
                 while (game < 8)
                 {
                     Console.SetCursorPosition(0, 2);
-                    Console.WriteLine("------------------");
+                    Console.WriteLine("-----------------");
                     Console.WriteLine($"|   |   |   |   |");
-                    Console.WriteLine("------------------");
+                    Console.WriteLine("-----------------");
                     Console.WriteLine($"|   |   |   |   |");
-                    Console.WriteLine("------------------");
+                    Console.WriteLine("-----------------");
                     Console.WriteLine($"|   |   |   |   |");
-                    Console.WriteLine("------------------");
+                    Console.WriteLine("-----------------");
                     Console.WriteLine($"|   |   |   |   |");
-                    Console.WriteLine("------------------");
+                    Console.WriteLine("-----------------");
                     do
                     {
                         game1();
-                        if (vibor1 < 17)
+                        if (vibor12 < 17)
                         {
                             game2();
                             Console.SetCursorPosition(0, 13);
                             Console.WriteLine("     ");
-                            Console.SetCursorPosition(0, 16);
+                            Console.SetCursorPosition(0, 15);
                             Console.WriteLine("      ");
-                            if (vibor1 == vibor2)
+                            Console.SetCursorPosition(0, 19);
+                            Console.WriteLine("      ");
+                            Console.SetCursorPosition(0, 21);
+                            Console.WriteLine("      ");
+                            if (vibor1 == vibor2 && vibor12 == vibor22)
                             { Console.WriteLine("Вы не можете открывать одну и ту же клетку."); }
                             else
                             {
-                                if (vibor1 == 1 || vibor2 == 1)
-                                { Console.SetCursorPosition(2, 3); Console.WriteLine($"{nombers[0, 0]}"); otv[1] = nombers[0, 0]; }
-                                if (vibor1 == 2 || vibor2 == 2)
-                                { Console.SetCursorPosition(6, 3); Console.WriteLine(nombers[0, 1]); otv[2] = nombers[0, 1]; }
-                                if (vibor1 == 3 || vibor2 == 3)
-                                { Console.SetCursorPosition(9, 3); Console.WriteLine(nombers[0, 2]); otv[3] = nombers[0, 2]; }
-                                if (vibor1 == 4 || vibor2 == 4)
-                                { Console.SetCursorPosition(14, 3); Console.WriteLine(nombers[0, 3]); otv[4] = nombers[0, 3]; }
-                                if (vibor1 == 5 || vibor2 == 5)
-                                { Console.SetCursorPosition(2, 5); Console.WriteLine($"{nombers[1, 0]}"); otv[5] = nombers[1, 0]; }
-                                if (vibor1 == 6 || vibor2 == 6)
-                                { Console.SetCursorPosition(6, 5); Console.WriteLine(nombers[1, 1]); otv[6] = nombers[1, 1]; }
-                                if (vibor1 == 7 || vibor2 == 7)
-                                { Console.SetCursorPosition(9, 5); Console.WriteLine(nombers[1, 2]); otv[7] = nombers[1, 2]; }
-                                if (vibor1 == 8 || vibor2 == 8)
-                                { Console.SetCursorPosition(14, 5); Console.WriteLine(nombers[1, 3]); otv[8] = nombers[1, 3]; }
-                                if (vibor1 == 9 || vibor2 == 9)
-                                { Console.SetCursorPosition(2, 7); Console.WriteLine($"{nombers[2, 0]}"); otv[9] = nombers[2, 0]; }
-                                if (vibor1 == 10 || vibor2 == 10)
-                                { Console.SetCursorPosition(6, 7); Console.WriteLine(nombers[2, 1]); otv[10] = nombers[2, 1]; }
-                                if (vibor1 == 11 || vibor2 == 11)
-                                { Console.SetCursorPosition(9, 7); Console.WriteLine(nombers[2, 2]); otv[11] = nombers[2, 2]; }
-                                if (vibor1 == 12 || vibor2 == 12)
-                                { Console.SetCursorPosition(14, 7); Console.WriteLine(nombers[2, 3]); otv[12] = nombers[2, 3]; }
-                                if (vibor1 == 13 || vibor2 == 13)
-                                { Console.SetCursorPosition(2, 9); Console.WriteLine($"{nombers[3, 0]}"); otv[13] = nombers[3, 0]; }
-                                if (vibor1 == 14 || vibor2 == 14)
-                                { Console.SetCursorPosition(6, 9); Console.WriteLine(nombers[3, 1]); otv[14] = nombers[3, 1]; }
-                                if (vibor1 == 15 || vibor2 == 15)
-                                { Console.SetCursorPosition(9, 9); Console.WriteLine(nombers[3, 2]); otv[15] = nombers[3, 2]; }
-                                if (vibor1 == 16 || vibor2 == 16)
-                                { Console.SetCursorPosition(14, 9); Console.WriteLine(nombers[3, 3]); otv[16] = nombers[3, 3]; }
-                                if (otv[vibor1] == otv[vibor2])
+                                if (nombers[vibor1, vibor12] == otv2[vibor2, vibor22])
                                 {
-                                    Console.SetCursorPosition(0, 17);
+                                    x = 2;
+                                    y = 3;
+                                    for (int i = 0; i < 4; i++)
+                                    {
+                                        for (int j = 0; j < 4; j++)
+                                        {
+                                            if (nombers[i, j] == nombers[vibor1, vibor12] || nombers[i, j] == otv2[vibor2, vibor22])
+                                            {
+                                                Console.SetCursorPosition(x, y); 
+                                                Console.WriteLine(nombers[i, j]);
+                                            }
+                                            x += 4;
+                                        }
+                                        x = 2;
+                                        y += 2;
+                                    }
+                                    Console.SetCursorPosition(0, 22);
                                     game++;
                                     Console.WriteLine("Было найдено пар:" + game);
                                 }
-                                else if (otv[vibor1] != otv[vibor2])
+                                else if (nombers[vibor1, vibor12] != otv2[vibor2, vibor22])
                                 {
                                     game = 0;
                                     Console.SetCursorPosition(0, 2);
-                                    Console.WriteLine("------------------");
+                                    Console.WriteLine("-----------------");
                                     Console.WriteLine($"|   |   |   |   |");
-                                    Console.WriteLine("------------------");
+                                    Console.WriteLine("-----------------");
                                     Console.WriteLine($"|   |   |   |   |");
-                                    Console.WriteLine("------------------");
+                                    Console.WriteLine("-----------------");
                                     Console.WriteLine($"|   |   |   |   |");
-                                    Console.WriteLine("------------------");
+                                    Console.WriteLine("-----------------");
                                     Console.WriteLine($"|   |   |   |   |");
-                                    Console.WriteLine("------------------");
-                                    Console.SetCursorPosition(0, 17);
-                                    Console.WriteLine(game);
+                                    Console.WriteLine("-----------------");
+                                    Console.SetCursorPosition(0, 22);
+                                    Console.WriteLine("Вы допустили ошибку. Теперь найдено пар: " + game);
                                 }
                             }
                         }
@@ -205,9 +163,11 @@ namespace ConsoleApp1
                 osh = 0;
                 Console.SetCursorPosition(0, 11);
                 Console.WriteLine("Напишите, какую клетку вы хотите открыть.");
-                Console.WriteLine("Клетки же считаются от 1 до 16 с лева на право. Если хотите начать заново, то введите 17");
+                Console.WriteLine("Введите строка от 0 до 3, в которой вы хотите открыть ячейку.");
                 vibor1 = Convert.ToInt32(Console.ReadLine());
-                if (vibor1 > 17)
+                Console.WriteLine("Введите колонка от 0 до 3, в которой вы хотите открыть ячейку. Если хотите начать заново, то введите 17");
+                vibor12 = Convert.ToInt32(Console.ReadLine());
+                if (vibor1 > 3 || vibor12 > 3 || vibor1 < 0 || vibor12 < 0)
                 {
                     osh++;
                 }
@@ -217,14 +177,16 @@ namespace ConsoleApp1
         private int game2()
         {
             do { 
-            Console.SetCursorPosition(0, 14);
+            Console.SetCursorPosition(0, 17);
             Console.WriteLine("Напишите, какую вторую клетку вы хотите открыть.");
-            Console.WriteLine("Клетки же считаются от 1 до 16 с лева на право.");
+            Console.WriteLine("Введите строка от 0 до 3, в которой вы хотите открыть ячейку.");
             vibor2 = Convert.ToInt32(Console.ReadLine());
-            if (vibor1 > 16)
-            {
-                osh++;
-            }
+            Console.WriteLine("Введите колонка от 0 до 3, в которой вы хотите открыть ячейку.");
+            vibor22 = Convert.ToInt32(Console.ReadLine());
+                if (vibor2 > 3 || vibor22 > 3 || vibor2 < 0 || vibor22 < 0)
+                {
+                    osh++;
+                }
         } while (osh == 1);
             return vibor2;
         }
