@@ -20,6 +20,7 @@ namespace ConsoleApp1
         private int vibor22;
         private int nach;
         private int[] otv = new int[9];
+        private int[,] prov = new int[4, 4];
         private int[,] otv2 = new int[4, 4];
         private int osh2;
         private int x;
@@ -101,11 +102,18 @@ namespace ConsoleApp1
                             Console.WriteLine("      ");
                             Console.SetCursorPosition(0, 21);
                             Console.WriteLine("      ");
+                            Console.SetCursorPosition(0, 25);
+                            Console.WriteLine("                                   ");
                             if (vibor1 == vibor2 && vibor12 == vibor22)
                             { Console.WriteLine("Вы не можете открывать одну и ту же клетку."); }
                             else
                             {
-                                if (nombers[vibor1, vibor12] == otv2[vibor2, vibor22])
+                                if (prov[vibor1, vibor12] == 1 || prov[vibor2, vibor22] == 1)
+                                {
+                                    Console.SetCursorPosition(0, 24);
+                                    Console.WriteLine("Вы выбрали ячейку, которую уже открыли.");
+                                }
+                                else if (nombers[vibor1, vibor12] == otv2[vibor2, vibor22])
                                 {
                                     x = 2;
                                     y = 3;
@@ -115,8 +123,10 @@ namespace ConsoleApp1
                                         {
                                             if (nombers[i, j] == nombers[vibor1, vibor12] || nombers[i, j] == otv2[vibor2, vibor22])
                                             {
-                                                Console.SetCursorPosition(x, y); 
+                                                Console.SetCursorPosition(x, y);
                                                 Console.WriteLine(nombers[i, j]);
+                                                prov[vibor1, vibor12] = 1;
+                                                prov[vibor2, vibor22] = 1;
                                             }
                                             x += 4;
                                         }
@@ -140,8 +150,15 @@ namespace ConsoleApp1
                                     Console.WriteLine("-----------------");
                                     Console.WriteLine($"|   |   |   |   |");
                                     Console.WriteLine("-----------------");
-                                    Console.SetCursorPosition(0, 22);
+                                    Console.SetCursorPosition(0, 25);
                                     Console.WriteLine("Вы допустили ошибку. Теперь найдено пар: " + game);
+                                    for (int i = 0; i < 4; i++)
+                                    {
+                                        for (int j = 0; j < 4; j++)
+                                        {
+                                            prov[i, j] = 0;
+                                        }
+                                    }
                                 }
                             }
                         }
